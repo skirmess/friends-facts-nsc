@@ -14,6 +14,10 @@ list.
 
 *** Changelog
 
+Version 3
+Updated TOC for WoW 2.0.3
+Instead of wrappiung the original function, we use the new hooksecurefunc().
+
 Version 2 (based on FriendsFacts v1.1 from AnduinLothar)
 Replaced the RegisterForSave() with an entry in the toc file.
 Additionaly, report the time you've seen the user online last.

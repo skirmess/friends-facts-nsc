@@ -1,5 +1,5 @@
 --[[
-FriendsFacts NSC (no Sea Cosmos) 2
+FriendsFacts NSC (no Sea Cosmos) 3
 
 This add-on is based on version 1.1 of FriendsFacts from AnduinLothar
 which did not use Sea nor Cosmos. It is updated to work with WoW 2.0.
@@ -11,52 +11,12 @@ them online after they've logged off and show then in your friend
 list.
 ]]--
 
-local FriendsFacts_Version = 2
-local FriendsFacts_origFriendsList_Update = nil
+local FriendsFacts_Version = 3
 local FriendsFacts_loaded = false
 local realm = ''
 
 
-function FriendsFacts_init()
-
-	if ( FriendsFacts_loaded ) then
-		return
-	end
-	FriendsFacts_loaded = true
-
-	realm = GetRealmName()
-
-	if ( not FriendsFacts_Data ) then
-		FriendsFacts_Data = {}
-	end
-
-	if ( not FriendsFacts_Data[realm] ) then
-		FriendsFacts_Data[realm] = {}
-	end
-
-	-- Hook the FriendsList_Update handler
-	if (FriendsList_Update ~= FriendsFacts_origFriendsList_Update) then
-		FriendsFacts_origFriendsList_Update = FriendsList_Update
-		FriendsList_Update = FriendsFacts_FriendsList_Update
-
-	end
-
-	DEFAULT_CHAT_FRAME:AddMessage(string.format("Friends Facts NSC %i loaded.", FriendsFacts_Version))
-end
-
-
-function FriendsFacts_OnEvent(event)
-
-	if ( event == "VARIABLES_LOADED" ) then
-		this:UnregisterEvent("VARIABLES_LOADED")
-		FriendsFacts_init()
-	end
-end
-
-
 function FriendsFacts_FriendsList_Update()
-
-	FriendsFacts_origFriendsList_Update()
 
 	local nameLocationText
 	local infoText
@@ -107,4 +67,38 @@ function FriendsFacts_FriendsList_Update()
 		end
 	end
 end
+
+
+function FriendsFacts_init()
+
+	if ( FriendsFacts_loaded ) then
+		return
+	end
+	FriendsFacts_loaded = true
+
+	realm = GetRealmName()
+
+	if ( not FriendsFacts_Data ) then
+		FriendsFacts_Data = {}
+	end
+
+	if ( not FriendsFacts_Data[realm] ) then
+		FriendsFacts_Data[realm] = {}
+	end
+
+	-- Hook the FriendsList_Update handler
+	hooksecurefunc("FriendsList_Update", FriendsFacts_FriendsList_Update)
+
+	DEFAULT_CHAT_FRAME:AddMessage(string.format("Friends Facts NSC %i loaded.", FriendsFacts_Version))
+end
+
+
+function FriendsFacts_OnEvent(event)
+
+	if ( event == "VARIABLES_LOADED" ) then
+		this:UnregisterEvent("VARIABLES_LOADED")
+		FriendsFacts_init()
+	end
+end
+
 
