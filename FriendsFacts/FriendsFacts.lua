@@ -11,7 +11,7 @@ them online after they've logged off and show then in your friend
 list.
 ]]--
 
-local FriendsFacts_Version = 7
+local FriendsFacts_Version = 8
 local FriendsFacts_loaded = false
 local realm
 local L = FRIENDS_FACTS_NSC_CONST
@@ -79,10 +79,8 @@ function FriendsFacts_FriendsList_Update()
 					area = "UNKNOWN"
 				end
 				nameText:SetText(format(TEXT(L["OFFLINE_TEMPLATE"]), name, area))
-				if ( nameText:GetWidth() > 275 ) then
+				if ( nameText:GetStringWidth() > 275 ) then
 					nameText:SetText(format(TEXT(L["OFFLINE_TEMPLATE_SHORT"]), name, area))
-					nameText:SetJustifyH("LEFT")
-					nameText:SetWidth(275)
 				end
 				if ( level ) and ( class ) and ( lastSeen ) then
 					local td = timeDiff(now, tonumber(lastSeen))
