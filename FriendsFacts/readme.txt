@@ -14,6 +14,9 @@ list.
 
 *** Changelog
 
+Version 9
+Updated TOC for WoW 3.1.2
+
 Version 8
 Replaced a call to GetWidth() with GetStringWidth() to fix the display bug
 where the text was messed up for long zone names
