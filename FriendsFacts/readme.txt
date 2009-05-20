@@ -14,6 +14,9 @@ list.
 
 *** Changelog
 
+Version 4
+Updated TOC for WoW 2.3.0
+
 Version 3
 Updated TOC for WoW 2.0.3
 Instead of wrappiung the original function, we use the new hooksecurefunc().

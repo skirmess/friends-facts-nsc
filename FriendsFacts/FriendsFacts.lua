@@ -1,5 +1,5 @@
 --[[
-FriendsFacts NSC (no Sea Cosmos) 3
+FriendsFacts NSC (no Sea Cosmos) 4
 
 This add-on is based on version 1.1 of FriendsFacts from AnduinLothar
 which did not use Sea nor Cosmos. It is updated to work with WoW 2.0.
@@ -11,7 +11,7 @@ them online after they've logged off and show then in your friend
 list.
 ]]--
 
-local FriendsFacts_Version = 3
+local FriendsFacts_Version = 4
 local FriendsFacts_loaded = false
 local realm = ''
 
