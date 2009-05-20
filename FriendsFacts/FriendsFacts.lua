@@ -11,7 +11,7 @@ them online after they've logged off and show then in your friend
 list.
 ]]--
 
-local FriendsFacts_Version = 5
+local FriendsFacts_Version = 6
 local FriendsFacts_loaded = false
 local realm
 local L = FRIENDS_FACTS_NSC_CONST
@@ -41,7 +41,8 @@ end
 
 function FriendsFacts_FriendsList_Update()
 
-	local nameLocationText
+	local LocationText
+	local nameText
 	local infoText
 	local friendOffset = FauxScrollFrame_GetOffset(FriendsFrameFriendsScrollFrame)
 	local numFriends = GetNumFriends()
@@ -64,7 +65,8 @@ function FriendsFacts_FriendsList_Update()
 
 			elseif ( i > friendOffset ) and ( i <= friendOffset+FRIENDS_TO_DISPLAY ) and ( FriendsFacts_Data[realm][name] ) then
 
-				nameLocationText = getglobal("FriendsFrameFriendButton"..(i-friendOffset).."ButtonTextNameLocation")
+				LocationText = getglobal("FriendsFrameFriendButton"..(i-friendOffset).."ButtonTextLocation")
+				nameText = getglobal("FriendsFrameFriendButton"..(i-friendOffset).."ButtonTextName")
 				infoText = getglobal("FriendsFrameFriendButton"..(i-friendOffset).."ButtonTextInfo")
 				level = FriendsFacts_Data[realm][name].level
 				class = FriendsFacts_Data[realm][name].class
@@ -76,11 +78,11 @@ function FriendsFacts_FriendsList_Update()
 				if ( not area ) then
 					area = "UNKNOWN"
 				end
-				nameLocationText:SetText(format(TEXT(L["OFFLINE_TEMPLATE"]), name, area))
-				if ( nameLocationText:GetWidth() > 275 ) then
-					nameLocationText:SetText(format(TEXT(L["OFFLINE_TEMPLATE_SHORT"]), name, area))
-					nameLocationText:SetJustifyH("LEFT")
-					nameLocationText:SetWidth(275)
+				nameText:SetText(format(TEXT(L["OFFLINE_TEMPLATE"]), name, area))
+				if ( nameText:GetWidth() > 275 ) then
+					nameText:SetText(format(TEXT(L["OFFLINE_TEMPLATE_SHORT"]), name, area))
+					nameText:SetJustifyH("LEFT")
+					nameText:SetWidth(275)
 				end
 				if ( level ) and ( class ) and ( lastSeen ) then
 					local td = timeDiff(now, tonumber(lastSeen))

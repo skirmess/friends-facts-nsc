@@ -14,6 +14,9 @@ list.
 
 *** Changelog
 
+Version 6
+Fix for WoW 2.4.3 (nameLocationText was changed into LocationText and nameText)
+
 Version 5
 Updated TOC for WoW 2.4.0
 We show the last time you've seen a friend in the same way as it's shown
