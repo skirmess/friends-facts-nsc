@@ -1,6 +1,6 @@
-## Interface: 20300
+## Interface: 20400
 ## Title: Friends Facts NSC
-## Notes: Remember friends level, class and location after they've logged off.
+## Notes: Remember friends level, class and location after they've logged off
 ## Author: AnduinLothar / Kring
 ## OptionalDeps:
 ## Dependencies:

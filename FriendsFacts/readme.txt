@@ -1,5 +1,5 @@
 
-FriendsFacts NSC (no Sea Cosmos) 2
+FriendsFacts NSC (no Sea Cosmos)
 
 This add-on is based on version 1.1 of FriendsFacts from AnduinLothar
 which did not use Sea nor Cosmos. It is updated to work with WoW 2.0.
@@ -13,6 +13,12 @@ them online after they've logged off and show then in your friend
 list.
 
 *** Changelog
+
+Version 5
+Updated TOC for WoW 2.4.0
+We show the last time you've seen a friend in the same way as it's shown
+in the guild tab. We no longer show the date you've seen a friend the
+last time.
 
 Version 4
 Updated TOC for WoW 2.3.0
