@@ -11,7 +11,7 @@ them online after they've logged off and show then in your friend
 list.
 ]]--
 
-local FriendsFacts_Version = 6
+local FriendsFacts_Version = 7
 local FriendsFacts_loaded = false
 local realm
 local L = FRIENDS_FACTS_NSC_CONST

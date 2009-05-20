@@ -1,7 +1,7 @@
 
 .PHONY: clean tag release
 
-VERSION=6
+VERSION=7
 
 clean:
 	rm -f *~
@@ -12,9 +12,11 @@ tag: clean
 release: clean
 	( cd ..;							\
 		rm -f FriendsFacts-$(VERSION).zip;			\
-		find FriendsFacts -name .svn -prune -o			\
-	       		       -name Makefile -prune -o			\
-			       -name '.*.swp' -prune -o			\
-			       -print					\
+		find FriendsFacts					\
+				-name CVS -prune -o			\
+				-name .svn -prune -o			\
+				-name Makefile -prune -o		\
+				-name '.*.swp' -prune -o		\
+				-print					\
 		| zip -@ FriendsFacts-NSC-$(VERSION).zip;		\
 	)	

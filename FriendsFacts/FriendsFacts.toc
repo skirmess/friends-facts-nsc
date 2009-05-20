@@ -1,4 +1,4 @@
-## Interface: 20400
+## Interface: 30000
 ## Title: Friends Facts NSC
 ## Notes: Remember friends level, class and location after they've logged off
 ## Author: AnduinLothar / Kring

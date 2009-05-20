@@ -14,6 +14,9 @@ list.
 
 *** Changelog
 
+Version 7
+Updated TOC for WoW 3.0.2
+
 Version 6
 Fix for WoW 2.4.3 (nameLocationText was changed into LocationText and nameText)
 
