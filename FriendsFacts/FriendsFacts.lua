@@ -11,7 +11,7 @@ them online after they've logged off and show then in your friend
 list.
 ]]--
 
-local FriendsFacts_Version = 9
+local FriendsFacts_Version = 10
 local FriendsFacts_loaded = false
 local realm
 local L = FRIENDS_FACTS_NSC_CONST
@@ -31,7 +31,7 @@ local function timeDiff(t2,t1)
 	local d1,d2,carry,diff = date('*t',t1),date('*t',t2),false,{}
 	local colMax = {60,60,24,date('*t',time{year=d1.year,month=d1.month+1,day=0}).day,12}
 	d2.hour = d2.hour - (d2.isdst and 1 or 0) + (d1.isdst and 1 or 0) -- handle dst
-	for i,v in ipairs({'sec','min','hour','day','month','year'}) do 
+	for i,v in ipairs({'sec','min','hour','day','month','year'}) do
 		diff[v] = d2[v] - d1[v] + (carry and -1 or 0)
 		carry = diff[v] < 0
 		if carry then diff[v] = diff[v] + colMax[i] end

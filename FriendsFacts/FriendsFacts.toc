@@ -1,8 +1,9 @@
-## Interface: 30100
+## Interface: 30200
 ## Title: Friends Facts NSC
 ## Notes: Remember friends level, class and location after they've logged off
 ## Author: AnduinLothar / Kring
 ## OptionalDeps:
 ## Dependencies:
 ## SavedVariables: FriendsFacts_Data
+## X-Website: http://code.google.com/p/friends-facts-nsc/
 FriendsFacts.xml

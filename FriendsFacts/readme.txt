@@ -14,36 +14,41 @@ list.
 
 *** Changelog
 
+Version 10
+ * Updated TOC for WoW 3.2
+ * Added link to project main page at
+   http://code.google.com/p/friends-facts-nsc/
+
 Version 9
-Updated TOC for WoW 3.1.2
+ * Updated TOC for WoW 3.1.2
 
 Version 8
-Replaced a call to GetWidth() with GetStringWidth() to fix the display bug
-where the text was messed up for long zone names
+ * Replaced a call to GetWidth() with GetStringWidth() to fix the display bug
+   where the text was messed up for long zone names
 
 Version 7
-Updated TOC for WoW 3.0.2
+ * Updated TOC for WoW 3.0.2
 
 Version 6
-Fix for WoW 2.4.3 (nameLocationText was changed into LocationText and nameText)
+ * Fix for WoW 2.4.3 (nameLocationText was changed into LocationText and
+   nameText)
 
 Version 5
-Updated TOC for WoW 2.4.0
-We show the last time you've seen a friend in the same way as it's shown
-in the guild tab. We no longer show the date you've seen a friend the
-last time.
+ * Updated TOC for WoW 2.4.0
+ * We show the last time you've seen a friend in the same way as it's shown
+   in the guild tab. We no longer show the date you've seen a friend the
+   last time.
 
 Version 4
-Updated TOC for WoW 2.3.0
+ * Updated TOC for WoW 2.3.0
 
 Version 3
-Updated TOC for WoW 2.0.3
-Instead of wrappiung the original function, we use the new hooksecurefunc().
+ * Updated TOC for WoW 2.0.3
+ * Instead of wrappiung the original function, we use the new hooksecurefunc().
 
 Version 2 (based on FriendsFacts v1.1 from AnduinLothar)
-Replaced the RegisterForSave() with an entry in the toc file.
-Additionaly, report the time you've seen the user online last.
-The look is more identical with the default WoW look.
-Made Friend List Realm Specific (Warning! All old friend data will be
-lost). (inspired by FriendShare 1.2)
-
+ * Replaced the RegisterForSave() with an entry in the toc file.
+ * Additionaly, report the time you've seen the user online last.
+   The look is more identical with the default WoW look.
+   Made Friend List Realm Specific (Warning! All old friend data will be
+   lost). (inspired by FriendShare 1.2)
