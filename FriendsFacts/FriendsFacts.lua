@@ -1,128 +1,91 @@
---[[
-FriendsFacts NSC (no Sea Cosmos)
 
-This add-on is based on version 1.1 of FriendsFacts from AnduinLothar
-which did not use Sea nor Cosmos. It is updated to work with WoW 2.0.
-This is for all the people who would like to use FriendsFacts without
-the huge Sea/Cosmos overhead.
+-- Copyright (c) 2010, Sven Kirmess
 
-Remember friends level, class, location and the last time you've seen
-them online after they've logged off and show then in your friend
-list.
-]]--
+local Version = 11
+local Loaded = false
+local Realm
 
-local FriendsFacts_Version = 10
-local FriendsFacts_loaded = false
-local realm
-local L = FRIENDS_FACTS_NSC_CONST
+function FriendsFacts_FriendsFrame_SetButton(button, index, firstButton)
 
--- The following code returns a table containing
--- {year=years, month=months, day=days, hour=hours, min=minutes, sec=seconds}
--- representing the time between two dates created by os.time - by RichardWarburton.
---
--- http://lua-users.org/wiki/DayOfWeekAndDaysInMonthExample
-
-local function timeDiff(t2,t1)
-
-	if (t2 < t1) then
+	if ( button.buttonType ~= FRIENDS_BUTTON_TYPE_WOW ) then
 		return
 	end
 
-	local d1,d2,carry,diff = date('*t',t1),date('*t',t2),false,{}
-	local colMax = {60,60,24,date('*t',time{year=d1.year,month=d1.month+1,day=0}).day,12}
-	d2.hour = d2.hour - (d2.isdst and 1 or 0) + (d1.isdst and 1 or 0) -- handle dst
-	for i,v in ipairs({'sec','min','hour','day','month','year'}) do
-		diff[v] = d2[v] - d1[v] + (carry and -1 or 0)
-		carry = diff[v] < 0
-		if carry then diff[v] = diff[v] + colMax[i] end
+	local name, level, class, area, connected, status, note = GetFriendInfo(button.id)
+	
+	if ( not name ) then
+		-- friends list not yet loaded
+		return
 	end
-	return diff
-end
 
-function FriendsFacts_FriendsList_Update()
+	if ( not FriendsFacts_Data[Realm][name] ) then
+		FriendsFacts_Data[Realm][name] = {}
+	end
 
-	local LocationText
-	local nameText
-	local infoText
-	local friendOffset = FauxScrollFrame_GetOffset(FriendsFrameFriendsScrollFrame)
-	local numFriends = GetNumFriends()
-	local now = time()
+	if ( connected ) then
 
-	for i=1, numFriends do
-		local name, level, class, area, connected, status = GetFriendInfo(i)
+		FriendsFacts_Data[Realm][name].level = level
+		FriendsFacts_Data[Realm][name].class = class
+		FriendsFacts_Data[Realm][name].area = area
+		FriendsFacts_Data[Realm][name].lastSeen = format('%i', time())
 
-		if ( name ) then
-			if ( connected ) then
+	else
 
-				if ( not FriendsFacts_Data[realm][name] ) then
-					FriendsFacts_Data[realm][name] = {}
-				end
+		level = FriendsFacts_Data[Realm][name].level
+		class = FriendsFacts_Data[Realm][name].class
 
-				FriendsFacts_Data[realm][name].level = level
-				FriendsFacts_Data[realm][name].class = class
-				FriendsFacts_Data[realm][name].area = area
-				FriendsFacts_Data[realm][name].lastSeen = format('%i', time())
-
-			elseif ( i > friendOffset ) and ( i <= friendOffset+FRIENDS_TO_DISPLAY ) and ( FriendsFacts_Data[realm][name] ) then
-
-				LocationText = getglobal("FriendsFrameFriendButton"..(i-friendOffset).."ButtonTextLocation")
-				nameText = getglobal("FriendsFrameFriendButton"..(i-friendOffset).."ButtonTextName")
-				infoText = getglobal("FriendsFrameFriendButton"..(i-friendOffset).."ButtonTextInfo")
-				level = FriendsFacts_Data[realm][name].level
-				class = FriendsFacts_Data[realm][name].class
-				local lastSeen = FriendsFacts_Data[realm][name].lastSeen
-				if ( not class ) then
-					class = "UNKNOWN"
-				end
-				area = FriendsFacts_Data[realm][name].area
-				if ( not area ) then
-					area = "UNKNOWN"
-				end
-				nameText:SetText(format(TEXT(L["OFFLINE_TEMPLATE"]), name, area))
-				if ( nameText:GetStringWidth() > 275 ) then
-					nameText:SetText(format(TEXT(L["OFFLINE_TEMPLATE_SHORT"]), name, area))
-				end
-				if ( level ) and ( class ) and ( lastSeen ) then
-					local td = timeDiff(now, tonumber(lastSeen))
-					infoText:SetText(format(TEXT(L["LEVEL_TEMPLATE_LONG"]), level, class, RecentTimeDate(td.year, td.month, td.day, td.hour)))
-				elseif ( level ) and ( class ) then
-					infoText:SetText(format(TEXT(FRIENDS_LEVEL_TEMPLATE), level, class))
-				end
-			end
+		if ( class and level ) then
+			local nameText = name..", "..format(FRIENDS_LEVEL_TEMPLATE, level, class)
+			button.name:SetText(nameText)
 		end
+
+		local lastSeen = FriendsFacts_Data[Realm][name].lastSeen
+
+		if ( lastSeen ) then
+			local infoText = string.format("last seen %s ago", FriendsFrame_GetLastOnline(lastSeen))
+			button.info:SetText(infoText)
+		end
+
 	end
 end
 
-local function FriendsFacts_init()
+local function Initialize()
 
-	if ( FriendsFacts_loaded ) then
+	if ( Loaded ) then
 		return
 	end
 
-	FriendsFacts_loaded = true
+	Loaded = true
 
-	realm = GetRealmName()
+	Realm = GetRealmName()
 
 	-- Initialize FriendsFacts_Data
 	if ( not FriendsFacts_Data ) then
 		FriendsFacts_Data = {}
 	end
 
-	if ( not FriendsFacts_Data[realm] ) then
-		FriendsFacts_Data[realm] = {}
+	if ( not FriendsFacts_Data[Realm] ) then
+		FriendsFacts_Data[Realm] = {}
 	end
 
 	-- Hook the FriendsList_Update handler
-	hooksecurefunc("FriendsList_Update", FriendsFacts_FriendsList_Update)
-
-	DEFAULT_CHAT_FRAME:AddMessage(string.format("Friends Facts NSC %i loaded.", FriendsFacts_Version))
+	hooksecurefunc(FriendsFrameFriendsScrollFrame, 'buttonFunc', FriendsFacts_FriendsFrame_SetButton)
 end
 
-function FriendsFacts_OnEvent(event)
+function EventHandler(self, event, ...)
 
-	if ( event == "VARIABLES_LOADED" ) then
-		this:UnregisterEvent("VARIABLES_LOADED")
-		FriendsFacts_init()
+        if ( event == "PLAYER_ENTERING_WORLD" ) then
+
+                self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+
+		Initialize()
+
+		DEFAULT_CHAT_FRAME:AddMessage(string.format("Friends Facts NSC %i loaded.", Version))
 	end
 end
+
+-- main
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+frame:SetScript("OnEvent", EventHandler)
 
