@@ -7,6 +7,18 @@ local Realm
 
 function FriendsFacts_FriendsFrame_SetButton(button, index, firstButton)
 
+	local noteColor = "|cfffde05c"
+
+	-- Add note to BNet button
+	if ( button.buttonType == FRIENDS_BUTTON_TYPE_BNET ) then
+		local presenceID, givenName, surname,  toonName, toonID, client, isOnline,  lastOnline, isAFK, isDND, messageText,  noteText, isFriend, unknown =  BNGetFriendInfo(button.id)
+
+		if ( noteText ) then
+			button.info:SetText(button.info:GetText().." "..noteColor.."("..noteText..")")
+		end
+	end
+
+	-- We only do the "keep history" magic for WoW friends
 	if ( button.buttonType ~= FRIENDS_BUTTON_TYPE_WOW ) then
 		return
 	end
@@ -16,6 +28,11 @@ function FriendsFacts_FriendsFrame_SetButton(button, index, firstButton)
 	if ( not name ) then
 		-- friends list not yet loaded
 		return
+	end
+
+	local n = nil
+	if ( note ) then
+		n = noteColor.."("..note..")"
 	end
 
 	if ( not FriendsFacts_Data[Realm][name] ) then
@@ -29,6 +46,9 @@ function FriendsFacts_FriendsFrame_SetButton(button, index, firstButton)
 		FriendsFacts_Data[Realm][name].area = area
 		FriendsFacts_Data[Realm][name].lastSeen = format('%i', time())
 
+		if ( n ) then
+			button.info:SetText(button.info:GetText().." "..n)
+		end
 	else
 
 		level = FriendsFacts_Data[Realm][name].level
@@ -43,7 +63,13 @@ function FriendsFacts_FriendsFrame_SetButton(button, index, firstButton)
 
 		if ( lastSeen ) then
 			local infoText = string.format("last seen %s ago", FriendsFrame_GetLastOnline(lastSeen))
-			button.info:SetText(infoText)
+			if ( n ) then
+				button.info:SetText(infoText.." "..n)
+			else
+				button.info:SetText(infoText)
+			end
+		elseif ( n ) then
+			button.info:SetText(n)
 		end
 	end
 end
