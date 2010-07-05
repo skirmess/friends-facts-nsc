@@ -1,7 +1,7 @@
 
 -- Copyright (c) 2010, Sven Kirmess
 
-local Version = 11
+local Version = 12
 local Loaded = false
 local Realm
 
