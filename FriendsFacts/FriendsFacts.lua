@@ -45,7 +45,6 @@ function FriendsFacts_FriendsFrame_SetButton(button, index, firstButton)
 			local infoText = string.format("last seen %s ago", FriendsFrame_GetLastOnline(lastSeen))
 			button.info:SetText(infoText)
 		end
-
 	end
 end
 
