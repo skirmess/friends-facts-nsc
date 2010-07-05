@@ -72,7 +72,7 @@ local function Initialize()
 	hooksecurefunc(FriendsFrameFriendsScrollFrame, 'buttonFunc', FriendsFacts_FriendsFrame_SetButton)
 end
 
-function EventHandler(self, event, ...)
+local function EventHandler(self, event, ...)
 
         if ( event == "PLAYER_ENTERING_WORLD" ) then
 
