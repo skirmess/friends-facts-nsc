@@ -1,30 +1,26 @@
 
 -- Copyright (c) 2010, Sven Kirmess
 
-local Version = 12
+local Version = 13
 local Loaded = false
 local Realm
+local noteColor = "|cfffde05c"
 
-function FriendsFacts_FriendsFrame_SetButton(button, index, firstButton)
+-- Add note to BNet button
+local function FriendsFrame_UpdateBNETButton(button)
 
-	local noteColor = "|cfffde05c"
+	local presenceID, givenName, surname,  toonName, toonID, client, isOnline,  lastOnline, isAFK, isDND, messageText,  noteText, isFriend, unknown =  BNGetFriendInfo(button.id)
 
-	-- Add note to BNet button
-	if ( button.buttonType == FRIENDS_BUTTON_TYPE_BNET ) then
-		local presenceID, givenName, surname,  toonName, toonID, client, isOnline,  lastOnline, isAFK, isDND, messageText,  noteText, isFriend, unknown =  BNGetFriendInfo(button.id)
-
-		if ( noteText ) then
-			button.info:SetText(button.info:GetText().." "..noteColor.."("..noteText..")")
-		end
+	if ( noteText ) then
+		button.info:SetText(button.info:GetText().." "..noteColor.."("..noteText..")")
 	end
+end
 
-	-- We only do the "keep history" magic for WoW friends
-	if ( button.buttonType ~= FRIENDS_BUTTON_TYPE_WOW ) then
-		return
-	end
+-- We only do the "keep history" magic for WoW friends
+local function FriendsFrame_UpdateWoWButton(button)
 
 	local name, level, class, area, connected, status, note = GetFriendInfo(button.id)
-	
+
 	if ( not name ) then
 		-- friends list not yet loaded
 		return
@@ -74,6 +70,30 @@ function FriendsFacts_FriendsFrame_SetButton(button, index, firstButton)
 	end
 end
 
+local function FriendsFrame_Update()
+
+	local scrollFrame = FriendsFrameFriendsScrollFrame
+	local buttons = scrollFrame.buttons
+
+	local i
+
+	for i = 1, #buttons do
+
+		local button = buttons[i]
+
+		if(button:IsShown()) then
+
+			if ( button.buttonType == FRIENDS_BUTTON_TYPE_BNET ) then
+				FriendsFrame_UpdateBNETButton(button)
+			end
+
+			if ( button.buttonType == FRIENDS_BUTTON_TYPE_WOW ) then
+				FriendsFrame_UpdateWoWButton(button)
+			end
+		end
+	end
+end
+
 local function Initialize()
 
 	if ( Loaded ) then
@@ -93,8 +113,9 @@ local function Initialize()
 		FriendsFacts_Data[Realm] = {}
 	end
 
-	-- Hook the FriendsList_Update handler
-	hooksecurefunc(FriendsFrameFriendsScrollFrame, 'buttonFunc', FriendsFacts_FriendsFrame_SetButton)
+	-- Hook the friends list update handlers
+	hooksecurefunc(FriendsFrameFriendsScrollFrame, 'update', FriendsFrame_Update)
+	hooksecurefunc('FriendsFrame_UpdateFriends', FriendsFrame_Update)
 end
 
 local function EventHandler(self, event, ...)

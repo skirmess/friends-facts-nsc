@@ -6,6 +6,9 @@ after they've logged off and show then in your friends list.
 
 *** Changelog
 
+Version 13
+ * Updated for WoW 4.0.1
+
 Version 12
  * Show the Note in the friends list. Don't know why Blizzard removed that.
  * EventHandler() is now local
