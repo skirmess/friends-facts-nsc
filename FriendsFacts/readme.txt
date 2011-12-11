@@ -6,6 +6,9 @@ after they've logged off and show then in your friends list.
 
 *** Changelog
 
+Version 14
+ * Updated for WoW 4.3.0
+
 Version 13
  * Updated for WoW 4.0.1
 
