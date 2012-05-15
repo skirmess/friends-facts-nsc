@@ -6,6 +6,9 @@ after they've logged off and show then in your friends list.
 
 *** Changelog
 
+Version 15
+ * Fixed null pointer exception for friends playing Diablo III
+
 Version 14
  * Updated for WoW 4.3.0
 

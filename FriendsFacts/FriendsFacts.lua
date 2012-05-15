@@ -1,7 +1,7 @@
 
--- Copyright (c) 2010-2011, Sven Kirmess
+-- Copyright (c) 2010-2012, Sven Kirmess
 
-local Version = 14
+local Version = 15
 local Loaded = false
 local Realm
 local noteColor = "|cfffde05c"
@@ -9,10 +9,16 @@ local noteColor = "|cfffde05c"
 -- Add note to BNet button
 local function FriendsFrame_UpdateBNETButton(button)
 
-	local presenceID, givenName, surname,  toonName, toonID, client, isOnline,  lastOnline, isAFK, isDND, messageText,  noteText, isFriend, unknown =  BNGetFriendInfo(button.id)
+	local presenceID, givenName, surname, toonName, toonID, client, isOnline, lastOnline, isAFK, isDND, messageText, noteText, isFriend, unknown = BNGetFriendInfo(button.id)
 
 	if ( noteText ) then
-		button.info:SetText(button.info:GetText().." "..noteColor.."("..noteText..")")
+		local existingButtonText = button.info:GetText()
+		if ( existingButtonText == nil ) then
+			existingButtonText = ""
+		else
+			existingButtonText = existingButtonText.." "
+		end
+		button.info:SetText(existingButtonText..noteColor.."("..noteText..")")
 	end
 end
 
@@ -120,9 +126,9 @@ end
 
 local function EventHandler(self, event, ...)
 
-        if ( event == "PLAYER_ENTERING_WORLD" ) then
+	if ( event == "PLAYER_ENTERING_WORLD" ) then
 
-                self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
 
 		Initialize()
 
