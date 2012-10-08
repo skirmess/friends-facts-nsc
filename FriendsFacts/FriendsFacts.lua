@@ -1,7 +1,7 @@
 
 -- Copyright (c) 2010-2012, Sven Kirmess
 
-local Version = 15
+local Version = 16
 local Loaded = false
 local Realm
 local noteColor = "|cfffde05c"
@@ -9,7 +9,7 @@ local noteColor = "|cfffde05c"
 -- Add note to BNet button
 local function FriendsFrame_UpdateBNETButton(button)
 
-	local presenceID, givenName, surname, toonName, toonID, client, isOnline, lastOnline, isAFK, isDND, messageText, noteText, isFriend, unknown = BNGetFriendInfo(button.id)
+	local _, _, _, _, _, _, _, _, _, _, _, _, noteText, unknown = BNGetFriendInfo(button.id)
 
 	if ( noteText ) then
 		local existingButtonText = button.info:GetText()
