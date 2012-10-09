@@ -11,7 +11,7 @@ local function FriendsFrame_UpdateBNETButton(button)
 
 	local _, _, _, _, _, _, _, _, _, _, _, _, noteText, unknown = BNGetFriendInfo(button.id)
 
-	if ( noteText ) then
+	if ( ( noteText ) and ( noteText ~= "" ) ) then
 		local existingButtonText = button.info:GetText()
 		if ( existingButtonText == nil ) then
 			existingButtonText = ""
@@ -33,7 +33,7 @@ local function FriendsFrame_UpdateWoWButton(button)
 	end
 
 	local n = nil
-	if ( note ) then
+	if ( ( note ) and ( note ~= "" ) ) then
 		n = noteColor.."("..note..")"
 	end
 
