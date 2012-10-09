@@ -1,7 +1,7 @@
 
 -- Copyright (c) 2010-2012, Sven Kirmess
 
-local Version = 16
+local Version = 17
 local Loaded = false
 local Realm
 local noteColor = "|cfffde05c"
