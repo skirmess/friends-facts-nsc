@@ -1,0 +1,9 @@
+## Interface: 50200
+## Title: Friends Facts NSC
+## Notes: Remember friends level and class and the last time you've seen them online after they've logged off and show then in your friends list.
+## Author: Sven Kirmess
+## OptionalDeps:
+## Dependencies:
+## SavedVariables: FriendsFacts_Data
+## X-Website: http://code.google.com/p/friends-facts-nsc/
+FriendsFacts.lua
