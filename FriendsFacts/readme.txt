@@ -6,6 +6,9 @@ after they've logged off and show then in your friends list.
 
 *** Changelog
 
+Version 18
+ * Updated for WoW 5.2.0
+
 Version 17
  * Fixed a display bug after removing a note on a RealId friend
 
