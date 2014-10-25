@@ -1,7 +1,7 @@
 
 .PHONY: clean release
 
-VERSION=18
+VERSION=19
 NAME=FriendsFacts
 
 clean:
