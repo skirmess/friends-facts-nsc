@@ -4,6 +4,6 @@
 ## Author: Sven Kirmess
 ## OptionalDeps:
 ## Dependencies:
-## SavedVariables: FriendsFacts_Data
+## SavedVariables: FriendsFacts_Data, FriendsFacts_Data2
 ## X-Website: http://code.google.com/p/friends-facts-nsc/
 FriendsFacts.lua

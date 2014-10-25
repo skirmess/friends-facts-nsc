@@ -1,7 +1,7 @@
 
 -- Copyright (c) 2010-2014, Sven Kirmess
 
-local Version = 19
+local Version = 20
 local Loaded = false
 local Realm
 local noteColor = "|cfffde05c"
@@ -32,47 +32,57 @@ local function FriendsFrame_UpdateWoWButton(button)
 		return
 	end
 
+	nameWithRealm = string.lower(name)
+	if ( string.match(nameWithRealm, "-") == nil ) then
+		nameWithRealm = nameWithRealm .. "-" .. string.lower(Realm)
+	end
+
 	local n = nil
 	if ( ( note ) and ( note ~= "" ) ) then
 		n = noteColor.."("..note..")"
 	end
 
-	if ( not FriendsFacts_Data[Realm][name] ) then
-		FriendsFacts_Data[Realm][name] = {}
-	end
-
 	if ( connected ) then
 
-		FriendsFacts_Data[Realm][name].level = level
-		FriendsFacts_Data[Realm][name].class = class
-		FriendsFacts_Data[Realm][name].area = area
-		FriendsFacts_Data[Realm][name].lastSeen = format('%i', time())
+		if ( not FriendsFacts_Data2[nameWithRealm] ) then
+			FriendsFacts_Data2[nameWithRealm] = {}
+		end
+
+		FriendsFacts_Data2[nameWithRealm].level = level
+		FriendsFacts_Data2[nameWithRealm].class = class
+		FriendsFacts_Data2[nameWithRealm].area = area
+		FriendsFacts_Data2[nameWithRealm].lastSeen = format('%i', time())
 
 		if ( n ) then
 			button.info:SetText(button.info:GetText().." "..n)
 		end
-	else
 
-		level = FriendsFacts_Data[Realm][name].level
-		class = FriendsFacts_Data[Realm][name].class
+		return
+	end
 
-		if ( class and level ) then
-			local nameText = name..", "..format(FRIENDS_LEVEL_TEMPLATE, level, class)
-			button.name:SetText(nameText)
+	if ( not FriendsFacts_Data2[nameWithRealm] ) then
+		return
+	end
+
+	level = FriendsFacts_Data2[nameWithRealm].level
+	class = FriendsFacts_Data2[nameWithRealm].class
+
+	if ( class and level ) then
+		local nameText = name..", "..format(FRIENDS_LEVEL_TEMPLATE, level, class)
+		button.name:SetText(nameText)
+	end
+
+	local lastSeen = FriendsFacts_Data2[nameWithRealm].lastSeen
+
+	if ( lastSeen ) then
+		local infoText = string.format("last seen %s ago", FriendsFrame_GetLastOnline(lastSeen))
+		if ( n ) then
+			button.info:SetText(infoText.." "..n)
+		else
+			button.info:SetText(infoText)
 		end
-
-		local lastSeen = FriendsFacts_Data[Realm][name].lastSeen
-
-		if ( lastSeen ) then
-			local infoText = string.format("last seen %s ago", FriendsFrame_GetLastOnline(lastSeen))
-			if ( n ) then
-				button.info:SetText(infoText.." "..n)
-			else
-				button.info:SetText(infoText)
-			end
-		elseif ( n ) then
-			button.info:SetText(n)
-		end
+	elseif ( n ) then
+		button.info:SetText(n)
 	end
 end
 
@@ -108,15 +118,12 @@ local function Initialize()
 
 	Loaded = true
 
-	Realm = GetRealmName()
+	-- Realms like "Die Arguswacht" must be called "DieArguswacht" in the friends list.
+	Realm = string.gsub(GetRealmName(), "%s", "")
 
-	-- Initialize FriendsFacts_Data
-	if ( not FriendsFacts_Data ) then
-		FriendsFacts_Data = {}
-	end
-
-	if ( not FriendsFacts_Data[Realm] ) then
-		FriendsFacts_Data[Realm] = {}
+	-- Initialize FriendsFacts_Data2
+	if ( not FriendsFacts_Data2 ) then
+		FriendsFacts_Data2 = {}
 	end
 
 	-- Hook the friends list update handlers

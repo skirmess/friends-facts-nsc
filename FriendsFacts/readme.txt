@@ -6,6 +6,9 @@ after they've logged off and show then in your friends list.
 
 *** Changelog
 
+Version 20
+ * Added support for connected realms.
+
 Version 19
  * Updated for WoW 6.0.0
 
