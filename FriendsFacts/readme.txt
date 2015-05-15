@@ -6,6 +6,11 @@ after they've logged off and show then in your friends list.
 
 *** Changelog
 
+Version 21
+ * Updated TOC for WoW 6.1.0
+ * Changed project web page to GitHub
+   https://github.com/skirmess/friends-facts-nsc
+
 Version 20
  * Added support for connected realms.
 
