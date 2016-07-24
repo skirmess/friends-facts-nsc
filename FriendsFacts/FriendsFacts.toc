@@ -1,4 +1,4 @@
-## Interface: 60100
+## Interface: 70000
 ## Title: Friends Facts NSC
 ## Notes: Remember friends level and class and the last time you've seen them online after they've logged off and show then in your friends list.
 ## Author: Sven Kirmess
