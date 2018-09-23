@@ -6,6 +6,9 @@ after they've logged off and show then in your friends list.
 
 *** Changelog
 
+Version 23
+ * Updated TOC for WoW 8.0.0 (BfA)
+
 Version 22
  * Updated TOC for WoW 7.0.0
 
